@@ -283,8 +283,11 @@ def v_company_edit(request, pk):
     if request.method == "POST":
         form = CompanyModelForm(request.POST, instance=company)
         if form.is_valid():
-            form.save()
-            messages.success(request, "User Updated Successfully")
+            o_pincode = Pincodes.objects.filter(pincode=request.POST["pincode"]).first()
+            o_company = form.save()
+            o_company.pincode = o_pincode
+            o_company.save()
+            messages.success(request, "Company Updated Successfully")
             return redirect("masters:company_list")
     context = {"company": company}
     return render(request, "masters/company/edit.html", context)

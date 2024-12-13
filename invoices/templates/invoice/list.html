@@ -9,48 +9,42 @@
         cursor: pointer !important;
     }
     .purple_me{
-        background-color: yellow !important;
-        color: #00203FFF;
+        background-color: #FEE715FF !important;
+        color: #101820FF;
+        font-weight: bold;
     }
 </style>
 {% endblock %}
 {% block body %}
-<div class="card">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-sm-12 col-lg-3">
-                <div class="btn-group">
-                    <a href="{% url 'invoices:invoice_create' %}" type="button" class="btn btn-default">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-file-dollar">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                            <path d="M14 11h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5" />
-                            <path d="M12 17v1m0 -8v1" />
-                        </svg>
-                        New Invoice
-                    </a>
-                </div>
-            </div>
-            <div class="col-12">
-                <table id="example1" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>DATE</th>
-                            <th>CUSTOMER</th>
-                            <th>INVOICE NO</th>
-                            <th>QTY</th>
-                            <th>TAXABLE AMOUNT</th>
-                            <th>TAX</th>
-                            <th>TOTAL AMT.</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+<h1>INVOICES
+    <a href="{% url 'invoices:invoice_create' %}" class="btn btn-outline-cyan btn-pill" style="float: right;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 5l0 14" />
+            <path d="M5 12l14 0" />
+        </svg>CREATE
+    </a>
+</h1>
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table id="example1" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>DATE</th>
+                        <th>CUSTOMER</th>
+                        <th>INVOICE NO</th>
+                        <th>QTY</th>
+                        <th>TAXABLE AMOUNT</th>
+                        <th>TAX</th>
+                        <th>TOTAL AMT.</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -70,6 +64,8 @@
             lengthChange: true,
             info: true,
             paging: true,
+            ordering: true,
+            order: [[0, 'desc']],
             ajax: {
                 url: invoice_url,
                 dataSrc: ''

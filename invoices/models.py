@@ -98,15 +98,15 @@ class Invoices(Model):
         for x in l_tax_amt:
             if x["sgst"] > 0:
                 new_tax_amt_dict.append(
-                    {f"SGST @{(int(x['sgst']))}%": f"₹ {x['sgst_amt']}"}
+                    {f"SGST @{(int(x['sgst']))}%": f"{x['sgst_amt']}"}
                 )
             if x["cgst"] > 0:
                 new_tax_amt_dict.append(
-                    {f"CGST @{(int(x['cgst']))}%": f"₹ {x['cgst_amt']}"}
+                    {f"CGST @{(int(x['cgst']))}%": f"{x['cgst_amt']}"}
                 )
             if x["igst"] > 0:
                 new_tax_amt_dict.append(
-                    {f"IGST @{(int(x['igst']))}%": f"₹ {x['igst_amt']}"}
+                    {f"IGST @{(int(x['igst']))}%": f"{x['igst_amt']}"}
                 )
         return new_tax_amt_dict
 
@@ -168,7 +168,7 @@ class InvoiceItems(Model):
     def tax_amt(self) -> float:
         amt = self.taxable_amount()
         tax = self.tax()
-        return (tax / 100) * amt
+        return round((tax / 100) * amt, 2)
 
     def total_amount(self) -> float:
         amt = self.taxable_amount()

@@ -9,6 +9,7 @@ from rest_framework import generics
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.permissions import IsAuthenticated
 
+from fms.dj_support import render_file_else_response
 from masters.models import Company, Inventory
 
 from invoices.forms import InvoiceItemsModelForm, InvoicesModelForm
@@ -124,7 +125,6 @@ def v_invoice_item_create(request, fk, pk):
         else:
             f_invoice_item = InvoiceItemsModelForm(request.POST)
         if f_invoice_item.is_valid():
-            print(f_invoice_item.cleaned_data)
             invoice_item = f_invoice_item.save()
             messages.success(request, "Saved Successfully")
             return redirect("invoices:invoice_update", pk=fk)
@@ -144,6 +144,19 @@ def v_invoice_receipt(request, pk):
     supplier = Company.objects.get(provider=True)
     context = {"invoice": invoice, "invoice_items": invoice_items, "supplier": supplier}
     return render(request, "invoice/receipt.html", context)
+
+
+@login_required
+def v_invoice_pdf(request, pk):
+    invoice = get_object_or_404(Invoices, id=pk)
+    invoice_items = InvoiceItems.objects.filter(invoice_id=pk)
+    supplier = Company.objects.get(provider=True)
+    context = {"invoice": invoice, "invoice_items": invoice_items, "supplier": supplier}
+    status, response = render_file_else_response(
+        "invoice/receipt_copy.html", context, output_as_file=False
+    )
+    if status:
+        return response
 
 
 @login_required

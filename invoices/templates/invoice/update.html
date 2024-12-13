@@ -40,7 +40,7 @@
                     <label class="form-label" for="id_shipTo">Ship To</label>
                     <select class="form-select" name="shipTo" id="id_shipTo">
                         {% for vendor in vendors %}
-                        {% if vendor.provider  ==  False %}
+                        {% if vendor.provider == False %}
                         <option value="{{vendor.id}}" {% if vendor.id == invoice.shipTo %}selected{% endif %}>
                             {{vendor.name}} ( {{vendor.address}} )
                         </option>
@@ -61,6 +61,18 @@
                         </svg>
                         GENERATE
                     </button>
+                    <a href="{% url 'invoices:invoice_receipt' invoice.id %}"  class="btn btn-outline-purple" target="_blank" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-eye-edit">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                            <path
+                                d="M11.192 17.966c-3.242 -.28 -5.972 -2.269 -8.192 -5.966c2.4 -4 5.4 -6 9 -6c3.326 0 6.14 1.707 8.442 5.122" />
+                            <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z" />
+                        </svg>
+                        PREVIEW
+                    </a>
                     <a href="{% url 'invoices:invoice_item_create' invoice.id 0 %}" class="btn btn-outline-dark">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -97,8 +109,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger me-auto" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" formaction="{% url 'invoices:invoice_generate' invoice.id %}" class="btn btn-primary"
-                        data-bs-dismiss="modal">Confirm</button>
+                    <button type="submit" formaction="{% url 'invoices:invoice_generate' invoice.id %}"
+                        class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
                 </div>
             </div>
         </div>

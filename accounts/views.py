@@ -1,5 +1,6 @@
-from django.shortcuts import redirect, render
 from django.contrib.auth import logout
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from accounts.forms import UserModelForm
 
@@ -13,6 +14,11 @@ def v_homepage(request):
 def v_logout_view(request):
     logout(request)
     return redirect("accounts:login")
+
+
+def v_profile(request):
+    context = {"user": User.objects.get(id=request.user.id)}
+    return render(request, "registration/profile.html", context)
 
 
 def v_signup_view(request):
