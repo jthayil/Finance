@@ -3,3 +3,4 @@ venv/
 **/migrations/00*.py
 *.log
 .env
+TODO

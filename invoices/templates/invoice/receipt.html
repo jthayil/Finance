@@ -32,7 +32,10 @@
             </div>
             <div class="col-12" style="border: 3px solid black;"></div>
             <div class="col-12 d-flex justify-content-between" style="background-color: #e5e5e5;">
-                <div><b>Invoice No.: </b>{{invoice.invoice_no}}</div>
+                <div><b>Invoice No.: </b>
+                {% if invoice.status == 1 %}
+                {{invoice.invoice_no}}
+                {% endif %}</div>
                 <div><b>Invoice Date: </b>{{invoice.inserted_On}}</div>
             </div>
             <div class="col-6">
