@@ -15,7 +15,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['laxmi.car.service.thayil.in']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
